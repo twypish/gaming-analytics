@@ -90,8 +90,12 @@ cd analytics-engine && python consumer.py
 - React Dashboard: http://localhost:3000
 ![image](https://github.com/user-attachments/assets/00668379-ec21-45ed-93c4-22bf0c31b934)
 
-- Leaderboard API: http://localhost:5000/leaderboard  
+- Leaderboard API: http://localhost:5000/leaderboard
+  ![image](https://github.com/user-attachments/assets/f47a11a3-2771-45ed-9306-8856d787a2fc)
+ 
 - Kafka UI: http://localhost:8080
+![image](https://github.com/user-attachments/assets/f4a4e73c-b869-47ef-90a5-a8cc16302e11)
+
 
 ## Date
 
