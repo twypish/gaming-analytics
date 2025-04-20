@@ -1,11 +1,18 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 import redis
 
+# Create the Flask app and enable CORS
 app = Flask(__name__)
+CORS(app)  # 👈 This allows cross-origin requests (important for React)
+
+# Connect to Redis
 r = redis.Redis(host='localhost', port=6379, db=0)
 
 @app.route('/leaderboard', methods=['GET'])
 def leaderboard():
+    print("📥 Leaderboard endpoint hit!")  # Debug log
+
     players = []
     keys = r.keys('stats:*')
 
@@ -22,7 +29,7 @@ def leaderboard():
             "score": score
         })
 
-    # Sort by score descending
+    # Sort players by score descending
     sorted_players = sorted(players, key=lambda x: x["score"], reverse=True)
     return jsonify(sorted_players)
 
