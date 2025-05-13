@@ -4,25 +4,27 @@ import time
 import random
 from datetime import datetime
 
-# Connect to Kafka
 producer = KafkaProducer(
-    bootstrap_servers='localhost:29092',  # External Kafka port
-    value_serializer=lambda v: json.dumps(v).encode('utf-8')  # Convert dict to JSON
+    bootstrap_servers='localhost:29092',
+    value_serializer=lambda v: json.dumps(v).encode('utf-8')
 )
 
-# Simulated event types
-event_types = ["kill", "death", "item_pickup"]
+games = ["Apex", "Valorant", "Halo", "League of Legends", "CS:GO", "Overwatch"]
+event_types = ["kill", "death", "assist", "item_pickup", "objective", "healing", "gold_earned"]
+match_ids = [f"match{i}" for i in range(1, 6)]
 
-# Loop to send events continuously
+print("Event tracker started")
+
 while True:
+    game = random.choice(games)
     event = {
+        "game_name": game,
+        "match_id": random.choice(match_ids),
         "player_id": f"player{random.randint(1, 5)}",
         "event_type": random.choice(event_types),
-        "timestamp": datetime.utcnow().isoformat(),
-        "match_id": "match1"
+        "value": random.randint(1, 5),
+        "timestamp": datetime.utcnow().isoformat()
     }
-
     print("Sending event:", event)
     producer.send("player_events", event)
-    time.sleep(1)  # Send one event per second
-
+    time.sleep(1)

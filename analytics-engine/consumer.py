@@ -2,7 +2,6 @@ from kafka import KafkaConsumer
 import json
 import redis
 
-# Connect to Kafka
 consumer = KafkaConsumer(
     "player_events",
     bootstrap_servers='localhost:29092',
@@ -11,28 +10,15 @@ consumer = KafkaConsumer(
     group_id='analytics-group'
 )
 
-# Connect to Redis
 r = redis.Redis(host='localhost', port=6379, db=0)
-
-print("Analytics Engine running...")
+print("Analytics engine started")
 
 for message in consumer:
     event = message.value
-    player_id = event["player_id"]
-    event_type = event["event_type"]
+    player_id = event.get("player_id")
+    game_name = event.get("game_name", "default_game")
+    event_type = event.get("event_type")
+    value = event.get("value", 1)
 
-    # Redis hash key
-    redis_key = f"stats:{player_id}"
-
-    if event_type == "kill":
-        r.hincrby(redis_key, "kills", 1)
-    elif event_type == "death":
-        r.hincrby(redis_key, "deaths", 1)
-    elif event_type == "item_pickup":
-        r.hincrby(redis_key, "items", 1)
-
-    # Optional: Print updated stats
-    stats = r.hgetall(redis_key)
-    decoded_stats = {k.decode(): int(v) for k, v in stats.items()}
-    print(f"{player_id} stats: {decoded_stats}")
-
+    redis_key = f"stats:{game_name}:{player_id}"
+    r.hincrby(redis_key, event_type, value)

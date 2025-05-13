@@ -1,0 +1,6 @@
+FROM python:3.10-slim
+WORKDIR /app
+COPY leaderboard-service/ leaderboard-service/
+COPY analytics-engine/ analytics-engine/
+COPY player-tracker/ player-tracker/
+RUN pip install flask flask-cors redis kafka-python
