@@ -121,10 +121,10 @@ If extended, the system would include:
 ## Contact
 
 Troy Wypishinski-Prechter
-Email: [twypish@gmail.com](mailto:twypish@gmail.com)
-Website: [https://twypish.dev](https://twypish.dev)
-LinkedIn: [https://linkedin.com/in/twypish](https://linkedin.com/in/twypish)
-GitHub: [https://github.com/twypish](https://github.com/twypish)
+Email: twypish@gmail.com
+Website: https://twypish.dev
+LinkedIn: https://linkedin.com/in/tjwp
+GitHub: https://github.com/twypish
 
 ---
 
